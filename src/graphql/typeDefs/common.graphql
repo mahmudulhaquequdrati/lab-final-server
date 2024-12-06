@@ -1,0 +1,60 @@
+scalar Upload
+scalar Date
+
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
+
+type CommonUserDataType {
+  id: ID!
+  first_name: String!
+  last_name: String!
+  email: String!
+  phone: String!
+  address: String!
+  billing_address: String
+  code: String!
+  place: String!
+  internal_cost_center: String
+  profile_image: String
+  createdAt: String!
+  updatedAt: String!
+}
+
+input CommonQueryType {
+  id: ID!
+}
+
+enum TransportOption {
+  all_order
+  transfer_trip
+  investigation_trip
+  private_trips
+  collection_order
+  recurring
+}
+
+input CommonOrderQueryType {
+  date: Date
+  filter_by: TransportOption
+  search_keyword: String
+  page: Int
+  sort_by: String
+  sort_order: String
+}
+
+input CommonRecurringOrderQueryType {
+  orderId: ID!
+  date: Date
+  filter_by: TransportOption
+  search_keyword: String
+  page: Int
+  sort_by: String
+  sort_order: String
+}
+
+input CommonMessageRequestQueryType {
+  page: Int
+}

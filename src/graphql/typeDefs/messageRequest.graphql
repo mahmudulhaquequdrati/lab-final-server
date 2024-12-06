@@ -1,0 +1,36 @@
+type MessageRequst {
+  id: ID!
+  user: CommonUserDataType!
+  status: String!
+  message: String!
+  title: String!
+  order_number: String # should it be id instead of order_number?
+  file: String
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+# Type definition for paginated orders
+type PaginatedRequests {
+  data: [MessageRequst!]!
+  total: Int!
+  currentPage: Int!
+  totalPages: Int!
+}
+
+input MessageRequestInput {
+  message: String!
+  title: String!
+  order_number: String
+  file: String
+}
+
+# Query type for MessageRequest
+type Query {
+  getMessageRequests(queryData: CommonMessageRequestQueryType): PaginatedRequests!
+}
+
+# Mutation type for MessageRequest
+type Mutation {
+  createMessageRequest(inputData: MessageRequestInput): MessageRequst
+}

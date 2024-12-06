@@ -1,0 +1,159 @@
+# TransportationData type definition
+type TransportationData {
+  type_of_transport: String
+  mode_of_transportation: String!
+  transport_with: [String!]
+  oxygen_quantity: Int
+}
+
+# PatientData type definition
+type PatientData {
+  name: String
+  surname: String
+  date_of_birth: Date
+  area_room: String
+  cost_center: String
+  how_much: String
+  which: String
+  isolation: Boolean
+  patient_above_90kg: Boolean
+}
+
+# DestinationDetailsData type definition
+type DestinationDetailsData {
+  pick_up_name: String!
+  pick_up_address: String!
+  pick_up_city: String!
+  pick_up_country: String
+  pick_up_postal_code: String!
+  pick_up_employee_name: String!
+  pickup_phone: String!
+  drop_off_pick_up_date: Date
+  drop_off_pick_up_time: String!
+  pickup_appointment_time: String
+  drop_off_name: String!
+  drop_off_address: String!
+  drop_off_city: String!
+  drop_off_country: String!
+  drop_off_postal_code: String!
+  drop_off_phone: String
+  return_date: Date
+  return_approx_time: String
+}
+
+# BillingDetailsData type definition
+type BillingDetailsData {
+  pre_name: String
+  name: String
+  street: String
+  place: String
+  contact: String
+  contact_phone: String
+}
+
+# OrderRequest type definition
+type OrderRequest {
+  id: ID!
+  user: CommonUserDataType!
+  status: String
+  transportationData: TransportationData!
+  order_type: String
+  patientData: PatientData!
+  destinationDetailsData: DestinationDetailsData!
+  billingDetailsData: BillingDetailsData!
+  createdAt: String!
+  updatedAt: String!
+  isReviewGiven: Boolean
+}
+
+# Type definition for paginated orders
+type PaginatedOrders {
+  data: [OrderRequest!]!
+  total: Int!
+  currentPage: Int!
+  totalPages: Int!
+}
+
+# Input types for creating a OrderRequest
+input TransportationDataInput {
+  type_of_transport: String
+  mode_of_transportation: String!
+  transport_with: [String!]
+  oxygen_quantity: Int
+}
+
+input PatientDataInput {
+  name: String!
+  surname: String!
+  date_of_birth: Date
+  area_room: String!
+  cost_center: String!
+  how_much: String
+  which: String
+  isolation: Boolean
+  patient_above_90kg: Boolean
+}
+
+input DestinationDetailsDataInput {
+  pick_up_name: String!
+  pick_up_address: String!
+  pick_up_postal_code: String!
+  pick_up_city: String!
+  pick_up_country: String
+  pick_up_employee_name: String!
+  pickup_phone: String!
+  drop_off_pick_up_date: Date
+  drop_off_pick_up_time: String
+  pickup_appointment_time: String
+  drop_off_name: String!
+  drop_off_address: String!
+  drop_off_postal_code: String!
+  drop_off_city: String!
+  drop_off_country: String!
+  drop_off_phone: String
+  return_approx_time: String
+  return_date: Date
+}
+
+input BillingDetailsDataInput {
+  pre_name: String
+  name: String
+  street: String
+  place: String
+  contact: String
+  contact_phone: String
+}
+
+# Input type for creating a new OrderRequest
+input OrderRequestInput {
+  status: String
+  transportationData: TransportationDataInput!
+  patientData: PatientDataInput!
+  destinationDetailsData: DestinationDetailsDataInput!
+  billingDetailsData: BillingDetailsDataInput!
+  isReviewGiven: Boolean
+}
+
+input UpdateOrderRequestInput {
+  status: String
+  transportationData: TransportationDataInput
+  patientData: PatientDataInput
+  destinationDetailsData: DestinationDetailsDataInput
+  billingDetailsData: BillingDetailsDataInput
+  isReviewGiven: Boolean
+}
+
+input UpdateOrderStatus {
+  status: String!
+}
+
+# Query type for fetching requests
+type Query {
+  getAllRecurringOrders(queryData: CommonRecurringOrderQueryType): PaginatedOrders!
+  getARecurringOrder(queryData: CommonQueryType!): OrderRequest
+}
+
+type Mutation {
+  updateARecurringOrder(queryData: CommonQueryType!, inputData: UpdateOrderRequestInput!): OrderRequest!
+  updateRecurringOrderStatus(queryData: CommonQueryType!, inputData: UpdateOrderStatus!): OrderRequest!
+}

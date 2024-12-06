@@ -1,0 +1,28 @@
+type Review {
+  id: ID!
+  user: CommonUserDataType!
+  rating: Int!
+  review_message: String!
+  createdAt: Date!
+  updatedAt: Date!
+  orderId: ID!
+}
+
+type ReviewResponse {
+  rating: String!
+  review_message: String!
+}
+
+input ReviewInput {
+  rating: Int!
+  review_message: String!
+  orderId: ID!
+}
+
+type Query {
+  getAReviewFromOrder(queryData: CommonQueryType): Review
+}
+
+type Mutation {
+  createReview(inputData: ReviewInput): ReviewResponse!
+}
